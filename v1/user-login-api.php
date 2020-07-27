@@ -34,7 +34,7 @@
                     $iss = "localhost";
                     $iat = time();
                     $nbf = $iat + 10;
-                    $exp = $iat + 30;
+                    $exp = $iat + 120;
                     $aud = "myusers";
                     $user_arr_data = array(
                         'id' => $user_data['id'],

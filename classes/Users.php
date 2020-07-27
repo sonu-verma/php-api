@@ -53,4 +53,17 @@ Class Users{
         return  array();
 
     }
+
+    public function create_project(){
+        $create_project_query = "INSERT INTO ".$this->project_tbl." SET user_id = ? , name = ? , description = ? , status = ?";
+        $create_project_query_obj = $this->conn->prepare($create_project_query);
+        $project_name = htmlspecialchars(strip_tags($this->project_name));
+        $desc = htmlspecialchars(strip_tags($this->description));
+        $status = htmlspecialchars(strip_tags($this->status));
+        $create_project_query_obj->bind_param('issi',$this->user_id,$project_name,$desc,$status);
+        if($create_project_query_obj->execute()){
+            return true;
+        }
+        return false;
+    }
 }
