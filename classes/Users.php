@@ -35,9 +35,22 @@ Class Users{
         $check_user_email_obj = $this->conn->prepare($check_user_email);
         $check_user_email_obj->bind_param('s', $this->email);
         if($check_user_email_obj->execute()){
-            $result=  $check_user_email_obj->ger_result();
+            $result=  $check_user_email_obj->get_result();
             return $result->fetch_assoc();
         }
         return  array();
+    }
+
+    public function check_login(){
+
+        $check_user_email = "SELECT * FROM ".$this->user_tbl." WHERE email = ?";
+        $check_user_email_obj = $this->conn->prepare($check_user_email);
+        $check_user_email_obj->bind_param('s', $this->email);
+        if($check_user_email_obj->execute()){
+            $result=  $check_user_email_obj->get_result();
+            return $result->fetch_assoc();
+        }
+        return  array();
+
     }
 }

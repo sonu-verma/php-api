@@ -23,12 +23,17 @@
             $user_obj->email = $data->email;
             $user_obj->password =  password_hash($data->password, PASSWORD_DEFAULT);
 
-            if($user_obj->create_user()){
-                http_response_code(200);
-                echo json_encode(array('status'=>1,'message'=>"successfully inserted data.",'response_code'=>http_response_code(200)));
+            if(empty($user_obj->check_email())){
+                if($user_obj->create_user()){
+                    http_response_code(200);
+                    echo json_encode(array('status'=>1,'message'=>"successfully inserted data.",'response_code'=>http_response_code(200)));
+                }else{
+                    http_response_code(500);
+                    echo json_encode(array('status'=>0,'message'=>"data not saved.",'response_code'=>http_response_code(500)));
+                }
             }else{
-                http_response_code(500);
-                echo json_encode(array('status'=>0,'message'=>"data not saved.",'response_code'=>http_response_code(500)));
+                http_response_code(403);
+                echo json_encode(array('status'=>0,'message'=>"Already user exists.",'response_code'=>http_response_code(403)));
             }
         }else{
             http_response_code(500);
