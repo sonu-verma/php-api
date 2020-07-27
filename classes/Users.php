@@ -66,4 +66,11 @@ Class Users{
         }
         return false;
     }
+
+    public function app_project_list(){
+        $get_project_query =  "SELECT * FROM ".$this->project_tbl." ORDER BY id DESC";
+        $get_project_query_obj = $this->conn->prepare($get_project_query);
+        $get_project_query_obj->execute();
+        return $get_project_query_obj->get_result();
+    }
 }
